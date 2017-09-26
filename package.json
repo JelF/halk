@@ -1,0 +1,8 @@
+{
+  "name": "halk",
+  "author": "Alexander Smirnov <begdory4@gmail.com>",
+  "license": "MIT",
+  "dependencies": {
+    "lodash": "^4.17.4"
+  }
+}
