@@ -15,14 +15,27 @@ cabal-version:       >=1.10
 
 library
   hs-source-dirs:      src
-  exposed-modules:     Heat.JSVal
+  exposed-modules:     Heat.Browser
+                     , Heat.Browser.Body
+                     , Heat.Browser.Document
+                     , Heat.Browser.DOMElement
+                     , Heat.Browser.DOMHTMLElement
+                     , Heat.Browser.DOMNode
+                     , Heat.Browser.GenericDOMHTMLElement
+                     , Heat.Browser.Window
+
+                     , Heat.JSVal
                      , Heat.JSVal.FromJSVal
                      , Heat.JSVal.JSArray
                      , Heat.JSVal.JSChar
+                     , Heat.JSVal.JSInt
                      , Heat.JSVal.ToJSVal
 
+  other-modules:       Heat.JSVal.Lift
+  extensions:          JavaScriptFFI
+
   build-depends:       base >= 4.7 && < 5
-                     , ghcjs-base
+                     , ghcjs-base >= 0.2.0
   default-language:    Haskell2010
 
 executable halk
@@ -40,7 +53,11 @@ test-suite halk-test
   build-depends:       base
                      , halk
                      , hspec
-  other-modules:       Heat.JSValSpec
+  js-sources:          node_modules/lodash/lodash.js
+                     , test/imports.js
+  other-modules:       Heat.Browser.GenericDOMHTMLElementSpec
+                     , Heat.JSValSpec
+                     , Support.JSTest
   default-language:    Haskell2010
 
 source-repository head

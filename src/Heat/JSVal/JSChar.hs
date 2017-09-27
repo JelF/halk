@@ -1,7 +1,8 @@
 module Heat.JSVal.JSChar () where
 
-import GHCJS.Types (JSVal)
+import Control.Monad (guard)
 import Data.JSString (JSString, pack, unpack)
+import GHCJS.Types (JSVal)
 
 import Heat.JSVal.FromJSVal
 import Heat.JSVal.ToJSVal
@@ -19,7 +20,7 @@ foreign import javascript
   jsStringToJSVal :: JSString -> JSVal
 
 instance FromJSVal Char where
-  fromJSVal x = if isJSChar x then (Just . head . unpack . jsValToJSString) x else Nothing
+  fromJSVal x = guard (isJSChar x) >> (Just . head . unpack . jsValToJSString) x
 
 instance ToJSVal Char where
   toJSVal = jsStringToJSVal . pack . return
